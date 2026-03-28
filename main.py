@@ -80,8 +80,8 @@ class ZicPacToe:
         # Trazar la línea ganadora y mostrar el mensaje de victoria centrado
         if self.winner:
             pg.draw.line(self.game.screen, 'red', *self.winner_line, CELL_SIZE // 8)
-            label = self.font.render(f'Plater "{self.winner}" wins!', True, 'white', 'black')
-            self.game.screen.blit(label, WIN_SIZE // 2 - label.get_width() // 2, WIN_SIZE // 4)
+            label = self.font.render(f'Player "{self.winner}" wins!', True, 'white', 'black')
+            self.game.screen.blit(label, (WIN_SIZE // 2 - label.get_width() // 2, WIN_SIZE // 4))
 
     def draw(self):
         # Dibujar el fondo del tablero y luego las fichas
