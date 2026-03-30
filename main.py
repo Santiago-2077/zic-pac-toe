@@ -24,8 +24,8 @@ class ZicPacToe:
                            [INF, INF, INF],
                            [INF, INF, INF]]
 
-        # Elegir aleatoriamente quién empieza (0 = zombie, 1 = girasol)
-        self.player = randint(0, 1)
+        # Elegir quién empieza (0 = zombie, 1 = girasol)
+        self.player = 1
 
         # Las 8 combinaciones ganadoras: 3 filas, 3 columnas y 2 diagonales
         self.line_indices_array = [[(0,0), (0,1), (0,2)],
@@ -80,14 +80,23 @@ class ZicPacToe:
         # Trazar la línea ganadora y mostrar el mensaje de victoria centrado
         if self.winner:
             pg.draw.line(self.game.screen, 'red', *self.winner_line, CELL_SIZE // 8)
-            label = self.font.render(f'Player "{self.winner}" wins!', True, 'white', 'black')
+            winner_name = 'The Zombies' if self.winner == 'O' else 'The Plants'
+            label = self.font.render(f'{winner_name} win!', True, 'white', 'black')
             self.game.screen.blit(label, (WIN_SIZE // 2 - label.get_width() // 2, WIN_SIZE // 4))
+
+    def draw_draw(self):
+        # Mostrar mensaje de empate centrado cuando el tablero está lleno y no hay ganador
+        label = self.font.render("It's a Draw! Press Space to Restart", True, 'white', 'black')
+        self.game.screen.blit(label, (WIN_SIZE // 2 - label.get_width() // 2, WIN_SIZE // 4))
+
 
     def draw(self):
         # Dibujar el fondo del tablero y luego las fichas
         self.game.screen.blit(self.field_image, (0, 0))
         self.draw_objects()
         self.draw_winner()
+        if self.game_steps == 9 and not self.winner:
+            self.draw_draw()
 
     @staticmethod
     def get_scaled_image(path, res):
@@ -97,9 +106,11 @@ class ZicPacToe:
     
     def print_caption(self):
         # Actualizar el título de la ventana según el estado actual de la partida
-        pg.display.set_caption(f'Player {"OX"[self.player]} turn!')
+        player_name = 'The Zombies' if not self.player else 'The Plants'
+        pg.display.set_caption(f'{player_name} turn!')
         if self.winner:
-            pg.display.set_caption(f'Player {self.winner} wins! Press space to Restart')
+            winner_name = 'The Zombies' if self.winner == 'O' else 'The Plants'
+            pg.display.set_caption(f'{winner_name} win! Press space to Restart')
         elif self.game_steps == 9:
             pg.display.set_caption(f'Game Over! Press Space to Restart')
 
@@ -117,6 +128,7 @@ class Game:
         self.zic_pac_toe = ZicPacToe(self)
 
     def new_game(self):
+        # Reiniciar la partida creando una nueva instancia del juego
         self.zic_pac_toe = ZicPacToe(self)
 
 
@@ -131,6 +143,7 @@ class Game:
                     self.new_game()
 
     def run(self):
+        # Bucle principal: actualizar lógica, eventos y pantalla a 60 FPS
         self.zic_pac_toe.run()
         self.check_events()
         pg.display.update()
