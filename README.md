@@ -1,5 +1,29 @@
 # Zic-Pac-Toe
 
-Zic-Pac-Toe es una versión temática de Plants vs. Zombies del clásico juego Tres en Raya (Tic-Tac-Toe), construida con Python y Pygame. Dos jugadores se turnan haciendo clic en las celdas del tablero: el **Girasol** representa al jugador X y el **Zombie** representa al jugador O. El turno inicial se asigna aleatoriamente al comenzar cada partida, y el ganador se determina al alinear tres fichas en fila, columna o diagonal.
+Tic Tac Toe con estética de **Plants vs. Zombies**.
 
-Para jugar, ejecuta `python main.py` (requiere Python y Pygame instalados) y haz clic en las celdas del tablero para colocar tus fichas. Al terminar la partida, ya sea por victoria o empate, presiona **Espacio** para iniciar una nueva ronda.
+Construido con Python y Pygame.
+
+## Cómo jugar
+
+```bash
+pip install pygame
+python main.py
+```
+
+Haz clic en una celda para colocar tu ficha. Alinea tres en fila, columna o diagonal para ganar.
+
+## Controles
+
+| Tecla | Acción |
+|---|---|
+| Clic izquierdo | Colocar ficha |
+| `Space` | Reiniciar partida |
+| `C` | Alternar modo (2 jugadores / vs CPU) |
+| `S` | Cambiar quién empieza |
+| `H` (mantener) | Mostrar ayuda en pantalla |
+
+## Modos
+
+- **vs Player 2** — dos jugadores en el mismo teclado
+- **vs CPU** — juega contra los zombies controlados por la IA
